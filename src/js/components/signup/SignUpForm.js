@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { validateInput } from '../../../../server/shared/validations/signup';
+import InputGroup from '../common/InputGroup';
+
 
 export default class SignUpForm extends Component {
     constructor(props) {
@@ -6,7 +9,9 @@ export default class SignUpForm extends Component {
         this.state = {
             email: '',
             password: '',
-            passwordConfirmation: ''
+            passwordConfirmation: '',
+            errors: {},
+            submitIsLoading: false
         }
     }
 
@@ -16,55 +21,75 @@ export default class SignUpForm extends Component {
         });
     }
 
+    isValid() {
+        const { errors, isValid } = validateInput(this.state);
+
+        if (!isValid) {
+            this.setState({ errors, submitIsLoading: false });
+        }
+
+        return isValid;
+    }
+
     onSubmit(e) {
+        this.setState({ errors: {}, submitIsLoading: true });
         e.preventDefault();
-        console.log(this.state);
+
+        if (this.isValid()) {
+            this.props.userSignUpRequest(this.state).then(
+                () => {
+                    this.context.router.push('/');
+                 },
+                ({ data }) => this.setState({ errors: data, submitIsLoading: false })
+            );
+        }
     }
 
     render() {
+        const { errors } = this.state;
+
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
                 <h1>Join our community!</h1>
 
+                <InputGroup
+                    field="email"
+                    value={this.state.email}
+                    label="Email"
+                    error={errors.email}
+                    onChange={this.onChange.bind(this)}
+                />
+
+                <InputGroup
+                    field="password"
+                    value={this.state.password}
+                    label="Password"
+                    error={errors.password}
+                    onChange={this.onChange.bind(this)}
+                />
+
+                <InputGroup
+                    field="passwordConfirmation"
+                    value={this.state.passwordConfirmation}
+                    label="Confirm Password"
+                    error={errors.passwordConfirmation}
+                    onChange={this.onChange.bind(this)}
+                />
+
                 <div class="form-group">
-                    <label for="email" class="control-label">Email</label>
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.onChange.bind(this)}
-                        name="email"
-                        class="form-control"
-                        id="email"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="password" class="control-label">Password</label>
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        onChange={this.onChange.bind(this)}
-                        name="password"
-                        class="form-control"
-                        id="password"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="passwordConfirmation" class="control-label">Confirm password</label>
-                    <input
-                        type="password"
-                        value={this.state.passwordConfirmation}
-                        onChange={this.onChange.bind(this)}
-                        name="passwordConfirmation"
-                        class="form-control"
-                        id="passwordConfirmation"
-                    />
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary btn-lg">
+                    <button disabled={this.state.submitIsLoading} class="btn btn-primary btn-lg">
                         Sign Up!
                    </button>
                 </div>
             </form>
         );
     }
+}
+
+SignUpForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
+SignUpForm.propTypes = {
+    userSignUpRequest: React.PropTypes.func.isRequired
 }
