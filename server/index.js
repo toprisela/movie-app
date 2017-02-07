@@ -13,7 +13,7 @@ const compiler = webpack(webpackConfig);
 app.use(webpackMiddleware(compiler, {
     hot:true,
     publicPath: webpackConfig.output.publicPath,
-    noInfo: true
+    noInfo: true //Display no info to console. Only warnings and errors
 }));
 app.use(webpackHotMiddleware(compiler))
 
