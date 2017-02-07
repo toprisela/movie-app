@@ -1,11 +1,21 @@
 import path from 'path';
+import webpack from 'webpack';
 
 export default {
     devtool: 'source-map',
-    entry: path.join(__dirname, 'src', 'js', 'index.js'),
+    entry: [
+        'webpack-hot-middleware/client',
+        path.join(__dirname, 'src', 'js', 'index.js')
+    ],
     output: {
-        path: '/'
+        path: '/',
+        publicPath: '/'
     },
+    plugins: [
+        new webpack.NoEmitOnErrorsPlugin(), //Handles error messages in more cleaner way
+        new webpack.optimize.OccurrenceOrderPlugin(), //Ensures consistent build hashes
+        new webpack.HotModuleReplacementPlugin()
+    ],
     module: {
         loaders: [
             {
@@ -13,7 +23,7 @@ export default {
                 include: [
                     path.join(__dirname, 'src', 'js')
                 ],
-                loaders: ['babel-loader']
+                loaders: ['react-hot-loader', 'babel-loader']
             }
         ]
     },
