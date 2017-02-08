@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { validateInput } from '../../../../server/shared/validations/signup';
-import InputGroup from '../common/InputGroup';
+import { validateInput } from '../../../../../server/shared/validations/signup';
+import InputGroup from '../../common/InputGroup';
+import { SUCCESS } from '../../../enums/messageTypes';
 
-
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,7 @@ export default class SignUpForm extends Component {
 
         return isValid;
     }
-
+ 
     onSubmit(e) {
         this.setState({ errors: {}, submitIsLoading: true });
         e.preventDefault();
@@ -38,6 +38,11 @@ export default class SignUpForm extends Component {
         if (this.isValid()) {
             this.props.userSignUpRequest(this.state).then(
                 () => {
+                    this.props.addMessage({
+                        type: SUCCESS,
+                        text: 'Your account has been created!'
+                    });
+
                     this.context.router.push('/');
                  },
                 ({ data }) => this.setState({ errors: data, submitIsLoading: false })
@@ -50,7 +55,7 @@ export default class SignUpForm extends Component {
 
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
-                <h1>Join our community!</h1>
+                <h1>Come to the dark side!</h1>
 
                 <InputGroup
                     field="email"
@@ -66,6 +71,7 @@ export default class SignUpForm extends Component {
                     label="Password"
                     error={errors.password}
                     onChange={this.onChange.bind(this)}
+                    type="password"
                 />
 
                 <InputGroup
@@ -74,6 +80,7 @@ export default class SignUpForm extends Component {
                     label="Confirm Password"
                     error={errors.passwordConfirmation}
                     onChange={this.onChange.bind(this)}
+                    type="password"
                 />
 
                 <div class="form-group">
@@ -91,5 +98,9 @@ SignUpForm.contextTypes = {
 }
 
 SignUpForm.propTypes = {
-    userSignUpRequest: React.PropTypes.func.isRequired
+    userSignUpRequest: React.PropTypes.func.isRequired,
+    addMessage: React.PropTypes.func.isRequired
 }
+
+
+export default SignUpForm;

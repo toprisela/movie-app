@@ -25,7 +25,7 @@
   "dependencies": {
     "axios": "^0.12.0",
     "body-parser": "^1.16.0",
-    "classnames": "^2.2.5 //allow us to have conditional class names", 
+    "classnames": "^2.2.5 //allow us to have conditional class names",
     "express": "^4.14.1",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
@@ -34,6 +34,7 @@
     "react-router": "^3.0.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "uuid": "^3.0.1",
     "validator": "^6.2.1"
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './navigation/Navigation';
-import Footer from './footer/Footer';
+import Footer from './pages/Footer';
+import MessageList from './messages/container/MessageList';
 
 export default class App extends Component {
     render() {
@@ -8,7 +9,7 @@ export default class App extends Component {
             <div>
                 <div class="container">
                     <Navigation />
-
+                    <MessageList />
                     {this.props.children}
                 </div>
 
