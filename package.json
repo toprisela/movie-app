@@ -28,6 +28,7 @@
     "classnames": "^2.2.5 //allow us to have conditional class names",
     "express": "^4.14.1",
     "lodash": "^4.17.4",
+    "mongodb": "^2.2.22",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
