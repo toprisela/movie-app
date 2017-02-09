@@ -8,11 +8,10 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
 import users from './routes/users';
 
+//mongodb
+import mongoose from 'mongoose';
+
 let app = express();
-
-app.use(bodyParser.json());
-
-app.use('/api/users', users);
 
 const compiler = webpack(webpackConfig);
 
@@ -28,4 +27,20 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.listen(3000, () => console.log('Started server on localhost:3000'));
+app.use(bodyParser.json());
+
+//
+app.use('/api/users', users);
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://tomislav.priselac:MyPassword@ds145009.mlab.com:45009/movieappdb', (err) => {
+    if (err) {
+        return console.log(err);
+    }
+
+    app.listen(3000, () => {
+        console.log('Started server on localhost:3000')
+    });
+}); 
+

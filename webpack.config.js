@@ -22,7 +22,7 @@ export default {
                 test: /\.js$/,
                 include: [
                     path.join(__dirname, 'src', 'js'),
-                    path.join(__dirname, 'server', 'shared')
+                    path.join(__dirname, 'server')
                 ],
                 loaders: ['react-hot-loader', 'babel-loader']
             }

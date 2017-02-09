@@ -11,7 +11,6 @@ export function validateInput(data) {
         errors.email = 'Email is invalid';
     }
 
-
     if (Validator.isEmpty(data.password)) {
         errors.password = 'This field is required';
     }
