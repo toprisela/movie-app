@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import SignUpForm from './presentation/SignUpForm';
+import SignUpForm from '../presentation/SignUpForm';
+
+import { userSignUpRequest } from '../actions/SignUpActions'
+import { addMessage} from '../../messages/actions/messageActions';
+
 import { connect } from 'react-redux';
-import { userSignUpRequest } from './actions/SignUpActions';
-import { addMessage} from '../messages/actions/messageActions';
 
 class SignUpPage extends Component{
     render(){

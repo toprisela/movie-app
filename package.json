@@ -29,6 +29,7 @@
     "body-parser": "^1.16.0",
     "classnames": "^2.2.5 //allow us to have conditional class names",
     "express": "^4.14.1",
+    "jsonwebtoken": "^7.2.1",
     "lodash": "^4.17.4",
     "mongoose": "^4.8.1",
     "react": "^15.4.2",

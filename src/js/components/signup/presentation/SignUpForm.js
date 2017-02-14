@@ -22,7 +22,9 @@ class SignUpForm extends Component {
     }
 
     isValid() {
-        const { errors, isValid } = validateInput(this.state);
+        const { email, password, passwordConfirmation } = this.state;
+
+        const { errors, isValid } = validateInput({ email, password, passwordConfirmation });
 
         if (!isValid) {
             this.setState({ errors, submitIsLoading: false });

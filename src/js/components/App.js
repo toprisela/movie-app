@@ -10,10 +10,13 @@ export default class App extends Component {
                 <div class="container">
                     <Navigation />
                     <MessageList />
+
                     {this.props.children}
+
+                    <Footer />
                 </div>
 
-                <Footer />
+
             </div>
         );
     }

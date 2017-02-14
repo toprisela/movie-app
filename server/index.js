@@ -6,7 +6,10 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
+
+//routes
 import users from './routes/users';
+import auth from './routes/auth';
 
 //mongodb
 import mongoose from 'mongoose';
@@ -31,6 +34,7 @@ app.use(bodyParser.json());
 
 //
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 mongoose.Promise = global.Promise;
 
